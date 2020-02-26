@@ -13,8 +13,6 @@ module S3DirectUpload
       def initialize(options)
         @key_starts_with = options[:key_starts_with] || "uploads/"
         @options = options.reverse_merge(
-          aws_access_key_id: S3DirectUpload.config.access_key_id,
-          aws_secret_access_key: S3DirectUpload.config.secret_access_key,
           bucket: options[:bucket] || S3DirectUpload.config.bucket,
           region: S3DirectUpload.config.region || "s3",
           url: S3DirectUpload.config.url,
@@ -48,7 +46,6 @@ module S3DirectUpload
         {
           :key => @options[:key] || key,
           :acl => @options[:acl],
-          "AWSAccessKeyId" => @options[:aws_access_key_id],
           :policy => policy,
           :signature => signature,
           :success_action_status => "201",
